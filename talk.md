@@ -18,7 +18,7 @@ class: background
 .date[21 January 2019, Haraldvollen]
 
 .footnote[[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licensed.
-Browse slides at [http://tinyurl.com/docker-tutorial](http://tinyurl.com/docker-tutorial)]
+Browse slides at [tinyurl.com/pinkdocker](https://tinyurl.com/pinkdocker)]
 
 ???
 
@@ -119,8 +119,12 @@ layout: false
 
 ##  HaaS: "Hello, world"-as-a-Service
 
-- `Dockerfile`
-```
+Let's build our first Docker image
+
+<p style="text-align:center;"><img src="img/whale.gif" style="width: 50%"></p>
+<p style="clear: both;">
+
+```Dockerfile
 FROM ubuntu:18.04
 CMD ["bash", "-c", "echo 'Hello, world!"]
 ```
@@ -142,38 +146,66 @@ CMD ["bash", "-c", "echo 'Hello, world!"]
 <p style="text-align:center;"><img src="img/mrchem-issue.png" style="width: 100%"></p>
 <p style="clear: both;">
 
-```bash
-docker run --rm -it -v "$PWD":/home/mightybuilder/work mrchemsoft/mrchem_ubuntu-18.04:latest 
+---
+
+## User says: "Can't compile/Tests fail/Can't run"
+
+.left[
+### For users
+]
+.right[
+### Dear user, please try the code in a Docker container 
+
 ```
+docker run --rm -it -v "$PWD":/home/mightybuilder/work mrchemsoft/mrchem_ubuntu-18.04
+```
+]
+
+<p style="text-align:center;"><img src="img/nyan-whale.gif" style="width: 80%"></p>
+<p style="clear: both;">
 
 ---
 
 ## User says: "Can't compile/Tests fail/Can't run"
 
-- Option A. Troubleshoot in a container
+.left[
+### For users
+### For developers
+]
+.right[
+### Let's reproduce in a container!
 
-```bash
-docker
+- Start container
 ```
-
-- Option B.
-
-```bash
-docker run --rm -it -v "$PWD":/home/mightybuilder/work mrchemsoft/mrchem_ubuntu-18.04:latest 
+docker run ubuntu:18.10
 ```
+- Install dependencies
+```
+apt-get update
+apt-get install g++ build-essential libeigen3-dev
+```
+- Restart
+```
+docker start <container-name>
+docker attach <container-name>
+```
+]
 
 ---
 
 ## JaaS: Jupyter-as-a-Service 
 
-```bash
-docker run --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter-teaching/psi4-notebook:latest
+```
+docker run 
+       --rm 
+       -p 10000:8888 
+       -e JUPYTER_ENABLE_LAB=yes 
+       -v "$PWD":/home/jovyan/work 
+       robertodr/psi4-notebook
 ```
 
-??? 
-
-- Explain options
-- Then move to terminal
+<p style="text-align:center;"><img src="img/JaaS.png" style="width: 100%"></p>
+<p style="clear: both;">
 
 ---
 layout: false
@@ -196,7 +228,7 @@ Slideshow created using [remark] and served using [cicero]
 
 Slides available on [GitHub](https://github.com/robertodr/docker-tutorial)
 
-Browse slides at [http://tinyurl.com/docker-tutorial](http://tinyurl.com/docker-tutorial)
+Browse slides at [http://tinyurl.com/pinkdocker](http://tinyurl.com/pinkdocker)
 
 [remark]: https://github.com/gnab/remark
 [cicero]: https://github.com/bast/cicero
